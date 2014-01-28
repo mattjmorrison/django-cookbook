@@ -1,5 +1,11 @@
 <VirtualHost *:<%= @params[:port] %>>
   Alias /static/ /var/www/<%= @params[:project] %>/<%= @params[:static_path] %>
+  <Directory /var/www/dummy/static/ >
+    Options FollowSymLinks MultiViews ExecCGI
+    AllowOverride None
+    Order deny,allow
+    Deny from all
+  </Directory>
 
   WSGIApplicationGroup %{GLOBAL}
   WSGIProcessGroup <%= @params[:name] %>

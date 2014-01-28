@@ -26,6 +26,23 @@ end
 
     it { should contain("Alias /static/ /var/www/dummy/static/").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
 
+    it { should contain("<Directory /var/www/dummy/static/ >").from(/<VirtualHost/).to(/<\/VirtualHost>/)}
+
+    it { should contain("</Directory>").from(/<Directory/).to(/<\/VirtualHost>/)}
+
+    it { should contain("Options FollowSymLinks MultiViews ExecCGI").from(/<Directory/).to(/<\/Directory>/) }
+
+    it { should contain("AllowOverride None").from(/<Directory/).to(/<\/Directory>/) }
+
+    it { should contain("Order deny,allow").from(/<Directory/).to(/<\/Directory>/) }
+
+    it { should contain("Deny from all").from(/<Directory/).to(/<\/Directory>/) }
+
+#   <Directory <%= @app[:parent_path] %><%= @app[:path] %><%= @app[:media_dir] %>/ >
+#     SetEnvIfNoCase Host <%= @app[:domain] %> VALID_HOST
+#     Allow from env=VALID_HOST
+#   </Directory>
+
   end
 end
 
