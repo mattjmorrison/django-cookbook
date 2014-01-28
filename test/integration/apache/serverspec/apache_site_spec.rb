@@ -4,14 +4,14 @@ include Serverspec::Helper::Exec
 include Serverspec::Helper::DetectOS
 
 
-describe file("/etc/apache2/sites-available/sample.conf") do
+describe file("/etc/apache2/sites-available/dummy.conf") do
 
   it { should contain("<VirtualHost *:80>")}
   
 end
 
-describe file("/etc/apache2/sites-enabled/sample.conf") do
+describe file("/etc/apache2/sites-enabled/dummy.conf") do
 
-  it { should be_linked_to '../sites-available/sample.conf' }
+  it { should be_linked_to '../sites-available/dummy.conf' }
 
 end

@@ -1,6 +1,0 @@
-<VirtualHost *:<%= @params[:port] %>>
-  WSGIApplicationGroup %{GLOBAL}
-  WSGIProcessGroup <%= @params[:name] %> 
-  WSGIScriptAlias / /var/www/sample/project/wsgi.py
-  WSGIDaemonProcess <%= @params[:name] %> processes=2 threads=3 display-name=<%= @params[:name] %> python-path=/var/www/sample/virtualenv/lib/python2.7/site-packages:/var/www/sample
-</VirtualHost>

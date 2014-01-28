@@ -1,20 +1,10 @@
-include_recipe "apache2::mod_wsgi"
-include_recipe "python::virtualenv"
+apache_wsgi_app 'dummy' do
+  wsgi_path 'wsgi/main.wsgi'
+  static_path 'static'
 
-python_virtualenv "/var/www/base_virtualenv" do
-  action :create
 end
 
-template "#{node['apache']['dir']}/conf.d/mod_wsgi.conf" do
-  source "mod_wsgi.conf.erb"
-end
-
-web_app "sample" do
-  template "sample.erb"
-  port 80
-end
-
-web_app "sample-ssl" do
-  template "sample.erb"
-  port 443
+apache_wsgi_app 'dummy2' do
+  wsgi_path 'wsgi/main.wsgi'
+  static_path 'static/'
 end
