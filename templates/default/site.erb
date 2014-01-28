@@ -1,4 +1,6 @@
 <VirtualHost *:<%= @params[:port] %>>
+  ServerAdmin <%= @params[:admin_email] %>
+  ServerName <%= @params[:server_name] %>:<%= @params[:port] %>
 
   Alias /static/ /var/www/<%= @params[:project] %>/<%= @params[:static_path] %>
   <Directory /var/www/<%= @params[:project] %>/<%= @params[:static_path] %> >

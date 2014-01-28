@@ -42,6 +42,33 @@ end
 
     it { should contain("Allow from env=VALID_HOST").from(/<Directory/).to(/<\/Directory>/) }
 
+    it { should contain("ServerAdmin dummy@dummy.com").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
+
+    # MISC STUFF =======
+    # <% if @app[:server_aliases] %>ServerAlias <%= @app[:server_aliases] %><% end %>
+    # DocumentRoot static_path
+    # <Directory wsgi_path>
+    #     Options FollowSymLinks MultiViews ExecCGI
+    #     AllowOverride None
+    #     SetEnvIfNoCase Host <%= @app[:domain] %> VALID_HOST
+    #     Order deny,allow
+    #     Deny from all
+    #     Allow from env=VALID_HOST
+    # </Directory>
+
+    # LOGGING STUFF =======
+    # LogLevel warn
+    # ErrorLog <%= @app[:parent_path] %><%= @app[:logs_dir] %>/<%= @app[:name] %>-error.log
+    # CustomLog <%= @app[:parent_path] %><%= @app[:logs_dir] %>/<%= @app[:name] %>-combined.log combined
+
+    # SSL STUFF =======
+    # SSLEngine on
+    # SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+    # SSLCertificateFile    /apps/sslcerts/active.crt
+    # SSLCertificateKeyFile /apps/sslcerts/active.key
+    # SSLCertificateChainFile /apps/sslcerts/intermediate.crt
+    # BrowserMatch ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+
   end
 end
 

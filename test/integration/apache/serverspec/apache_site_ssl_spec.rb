@@ -7,6 +7,8 @@ include Serverspec::Helper::DetectOS
 describe file("/etc/apache2/sites-available/dummy-ssl.conf") do
 
   it { should contain("<VirtualHost *:443>")}
+
+  it { should contain("ServerName dummy1.sample.com:443")}
   
 end
 
