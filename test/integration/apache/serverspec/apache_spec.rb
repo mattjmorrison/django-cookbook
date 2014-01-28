@@ -38,10 +38,9 @@ end
 
     it { should contain("Deny from all").from(/<Directory/).to(/<\/Directory>/) }
 
-#   <Directory <%= @app[:parent_path] %><%= @app[:path] %><%= @app[:media_dir] %>/ >
-#     SetEnvIfNoCase Host <%= @app[:domain] %> VALID_HOST
-#     Allow from env=VALID_HOST
-#   </Directory>
+    it { should contain("SetEnvIfNoCase Host sample.com VALID_HOST").from(/<Directory/).to(/<\/Directory>/) }
+
+    it { should contain("Allow from env=VALID_HOST").from(/<Directory/).to(/<\/Directory>/) }
 
   end
 end
@@ -52,6 +51,8 @@ end
     it { should be_file }
 
     it { should contain("Alias /static/ /var/www/dummy2/static/").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
+
+    it { should contain("<Directory /var/www/dummy2/static/ >").from(/<VirtualHost/).to(/<\/VirtualHost>/)}
 
   end
 end

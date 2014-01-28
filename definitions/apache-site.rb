@@ -1,6 +1,7 @@
 define :apache_wsgi_app do
   name = params[:name]
   wsgi_path = params[:wsgi_path]
+  domain = params[:domain]
   static_path = params[:static_path]
   static_path += '/' unless params[:static_path][-1, 1] == '/'
 
@@ -23,6 +24,7 @@ define :apache_wsgi_app do
     project name
     wsgi_path wsgi_path
     static_path static_path
+    domain domain
   end
 
   web_app "#{name}-ssl" do
@@ -32,6 +34,7 @@ define :apache_wsgi_app do
     project name
     wsgi_path wsgi_path
     static_path static_path
+    domain domain
   end
 
 end

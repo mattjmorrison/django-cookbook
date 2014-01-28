@@ -1,10 +1,13 @@
 <VirtualHost *:<%= @params[:port] %>>
+
   Alias /static/ /var/www/<%= @params[:project] %>/<%= @params[:static_path] %>
-  <Directory /var/www/dummy/static/ >
+  <Directory /var/www/<%= @params[:project] %>/<%= @params[:static_path] %> >
     Options FollowSymLinks MultiViews ExecCGI
     AllowOverride None
+    SetEnvIfNoCase Host <%= @params[:domain] %> VALID_HOST
     Order deny,allow
     Deny from all
+    Allow from env=VALID_HOST
   </Directory>
 
   WSGIApplicationGroup %{GLOBAL}
