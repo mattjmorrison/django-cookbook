@@ -44,6 +44,8 @@ end
 
     it { should contain("ServerAdmin dummy@dummy.com").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
 
+    it { should contain("ServerAlias sample.com").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
+
     # MISC STUFF =======
     # <% if @app[:server_aliases] %>ServerAlias <%= @app[:server_aliases] %><% end %>
     # DocumentRoot static_path
