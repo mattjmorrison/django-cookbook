@@ -18,3 +18,30 @@ describe file("/etc/apache2/conf.d/mod_wsgi.conf") do
 
 end
 
+describe file("/etc/apache2/mods-available/wsgi.conf") do
+
+  it { should be_file }
+
+  it { should contain("<IfModule mod_wsgi.c>").before("</IfModule>") }
+
+end
+
+describe file("/etc/apache2/mods-available/wsgi.load") do
+
+  it { should be_file }
+  
+  it { should contain("LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so") }
+
+end
+
+describe file("/etc/apache2/mods-enabled/wsgi.conf") do
+
+  it { should be_linked_to '../mods-available/wsgi.conf' }
+
+end
+
+describe file("/etc/apache2/mods-enabled/wsgi.load") do
+
+  it { should be_linked_to '../mods-available/wsgi.load' }
+
+end

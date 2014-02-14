@@ -17,4 +17,20 @@
   WSGIProcessGroup <%= @params[:name] %>
   WSGIScriptAlias / /var/www/<%= @params[:project] %>/<%= @params[:wsgi_path] %>
   WSGIDaemonProcess <%= @params[:name] %> processes=2 threads=3 display-name=<%= @params[:name] %> python-path=/var/www/<%= @params[:project] %>/virtualenv/lib/python2.7/site-packages:/var/www/<%= @params[:project] %>
+
+  LogLevel warn
+  ErrorLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
+  CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-combined.log combined
+
+  <% if @params[:ssl] %>
+  <%# # TEST THIS %>
+  SSLEngine on
+  SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+  SSLCertificateFile /etc/ssl/private/<%= @params[:ssl][:cert] %>
+  SSLCertificateKeyFile /etc/ssl/private/<%= @params[:ssl][:key] %>
+  SSLCertificateChainFile /etc/ssl/private/<%= @params[:ssl][:intermediate] %>
+  BrowserMatch ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+  <%# # TEST THAT %>
+  <% end %>
+
 </VirtualHost>

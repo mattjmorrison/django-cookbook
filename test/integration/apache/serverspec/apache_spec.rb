@@ -46,6 +46,8 @@ end
 
     it { should contain("ServerAlias sample.com").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
 
+    it { should contain("LogLevel warn").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
+
     # MISC STUFF =======
     # <% if @app[:server_aliases] %>ServerAlias <%= @app[:server_aliases] %><% end %>
     # DocumentRoot static_path
@@ -58,24 +60,10 @@ end
     #     Allow from env=VALID_HOST
     # </Directory>
 
-    # LOGGING STUFF =======
-    # LogLevel warn
-    # ErrorLog <%= @app[:parent_path] %><%= @app[:logs_dir] %>/<%= @app[:name] %>-error.log
-    # CustomLog <%= @app[:parent_path] %><%= @app[:logs_dir] %>/<%= @app[:name] %>-combined.log combined
-
-    # SSL STUFF =======
-    # SSLEngine on
-    # SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
-    # SSLCertificateFile    /apps/sslcerts/active.crt
-    # SSLCertificateKeyFile /apps/sslcerts/active.key
-    # SSLCertificateChainFile /apps/sslcerts/intermediate.crt
-    # BrowserMatch ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
-
   end
 end
 
-["dummy2-ssl", "dummy2"].each do |site|
-  describe file("/etc/apache2/sites-available/#{site}.conf") do
+describe file("/etc/apache2/sites-available/dummy2.conf") do
 
     it { should be_file }
 
@@ -83,5 +71,4 @@ end
 
     it { should contain("<Directory /var/www/dummy2/static/ >").from(/<VirtualHost/).to(/<\/VirtualHost>/)}
 
-  end
 end

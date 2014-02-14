@@ -4,6 +4,8 @@ define :apache_wsgi_app do
   server_name = params[:server_name]
   admin_email = params[:admin_email]
   static_path = params[:static_path]
+  ssl = params[:ssl]
+
   static_path += '/' unless params[:static_path][-1, 1] == '/'
 
   chef_gem 'public_suffix' do
@@ -13,7 +15,16 @@ define :apache_wsgi_app do
   domain = PublicSuffix.parse(server_name).domain
 
   include_recipe "apache2::mod_wsgi"
+  include_recipe "apache2::mod_ssl"
   include_recipe "python::virtualenv"
+
+  cookbook_file '/etc/ssl/private/fake.crt' do
+    source 'fake.crt'
+  end
+
+  cookbook_file '/etc/ssl/private/fake.key' do
+    source 'fake.key'
+  end
 
   python_virtualenv "/var/www/base_virtualenv" do
     action :create
@@ -36,16 +47,19 @@ define :apache_wsgi_app do
     server_name server_name
   end
 
-  web_app "#{name}-ssl" do
-    template "site.erb"
-    cookbook "django-cookbook"
-    port 443
-    project name
-    wsgi_path wsgi_path
-    static_path static_path
-    domain domain
-    admin_email admin_email
-    server_name server_name
+  if ssl
+    web_app "#{name}-ssl" do
+      template "site.erb"
+      cookbook "django-cookbook"
+      port 443
+      project name
+      wsgi_path wsgi_path
+      static_path static_path
+      domain domain
+      admin_email admin_email
+      server_name server_name
+      ssl ssl
+    end
   end
 
 end
