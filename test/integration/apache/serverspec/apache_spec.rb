@@ -48,17 +48,23 @@ end
 
     it { should contain("LogLevel warn").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
 
-    # MISC STUFF =======
-    # <% if @app[:server_aliases] %>ServerAlias <%= @app[:server_aliases] %><% end %>
-    # DocumentRoot static_path
-    # <Directory wsgi_path>
-    #     Options FollowSymLinks MultiViews ExecCGI
-    #     AllowOverride None
-    #     SetEnvIfNoCase Host <%= @app[:domain] %> VALID_HOST
-    #     Order deny,allow
-    #     Deny from all
-    #     Allow from env=VALID_HOST
-    # </Directory>
+    it { should contain("DocumentRoot /var/www/dummy/static/").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
+
+    it { should contain("<Directory /var/www/dummy/wsgi/ >").before(/<\/Directory>/).after(/<\/Directory>/) }
+
+    it { should contain("<Directory /var/www/dummy/wsgi/ >").from(/<VirtualHost/).to(/<\/VirtualHost>/) }
+
+    it { should contain("Options FollowSymLinks MultiViews ExecCGI").from("<Directory /var/www/dummy/wsgi/ >").to(/<\/Directory>/) }
+
+    it { should contain("AllowOverride None").from("<Directory /var/www/dummy/wsgi/ >").to(/<\/Directory>/) }
+
+    it { should contain("SetEnvIfNoCase Host sample.com VALID_HOST").from("<Directory /var/www/dummy/wsgi/ >").to(/<\/Directory>/) }
+
+    it { should contain("Order deny,allow").from("<Directory /var/www/dummy/wsgi/ >").to(/<\/Directory>/) }
+
+    it { should contain("Deny from all").from("<Directory /var/www/dummy/wsgi/ >").to(/<\/Directory>/) }
+
+    it { should contain("Allow from env=VALID_HOST").from("<Directory /var/www/dummy/wsgi/ >").to(/<\/Directory>/) }
 
   end
 end

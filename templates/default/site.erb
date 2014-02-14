@@ -3,8 +3,18 @@
   ServerName <%= @params[:server_name] %>:<%= @params[:port] %>
   ServerAlias <%= @params[:domain] %>
 
+  DocumentRoot /var/www/<%= @params[:project] %>/<%= @params[:static_path] %>
   Alias /static/ /var/www/<%= @params[:project] %>/<%= @params[:static_path] %>
   <Directory /var/www/<%= @params[:project] %>/<%= @params[:static_path] %> >
+    Options FollowSymLinks MultiViews ExecCGI
+    AllowOverride None
+    SetEnvIfNoCase Host <%= @params[:domain] %> VALID_HOST
+    Order deny,allow
+    Deny from all
+    Allow from env=VALID_HOST
+  </Directory>
+
+  <Directory /var/www/<%= File.dirname("#{@params[:project]}/#{@params[:wsgi_path]}") %>/ >
     Options FollowSymLinks MultiViews ExecCGI
     AllowOverride None
     SetEnvIfNoCase Host <%= @params[:domain] %> VALID_HOST
@@ -23,14 +33,12 @@
   CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-combined.log combined
 
   <% if @params[:ssl] %>
-  <%# # TEST THIS %>
   SSLEngine on
   SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
   SSLCertificateFile /etc/ssl/private/<%= @params[:ssl][:cert] %>
   SSLCertificateKeyFile /etc/ssl/private/<%= @params[:ssl][:key] %>
   SSLCertificateChainFile /etc/ssl/private/<%= @params[:ssl][:intermediate] %>
   BrowserMatch ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
-  <%# # TEST THAT %>
   <% end %>
 
 </VirtualHost>

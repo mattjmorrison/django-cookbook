@@ -3,6 +3,7 @@ ssl = {
     cert:'fake.crt',
     intermediate:'fake.crt'
 }
+
 apache_wsgi_app 'dummy' do
   server_name "dummy1.sample.com"
   wsgi_path 'wsgi/main.wsgi'
