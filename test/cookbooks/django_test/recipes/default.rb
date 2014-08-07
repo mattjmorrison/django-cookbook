@@ -18,3 +18,31 @@ apache_wsgi_app 'dummy2' do
   static_path 'static/'
   admin_email 'dummy@dummy.com'
 end
+
+
+['dummy', 'dummy2'].each do |file_name|
+  directory "/var/www/#{file_name}/wsgi/" do
+      owner 'root'
+      group node['apache']['root_group']
+      mode '0755'
+      recursive true
+  end
+  template "/var/www/#{file_name}/wsgi/main.wsgi" do
+    source "dummy.wsgi.erb"
+    owner 'root'
+    group node['apache']['root_group']
+    mode '0755'
+    variables({
+      :message => file_name
+    })
+    notifies :restart, 'service[apache2]'
+  end
+
+  cookbook_file '/etc/hosts' do
+    source 'hosts'
+    owner 'root'
+    group 'root'
+    mode '644'
+  end
+
+end

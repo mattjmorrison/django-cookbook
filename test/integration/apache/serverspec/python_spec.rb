@@ -11,7 +11,7 @@ end
 
 describe command("/var/www/base_virtualenv/bin/python --version") do
   
-  it { should return_stdout "Python 2.7.3" }
+  it { should return_stdout "Python 2.7.6" }
 
 end
 

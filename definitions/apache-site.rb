@@ -21,9 +21,15 @@ define :apache_wsgi_app do
     action :create
   end
 
-  template "#{node['apache']['dir']}/conf.d/mod_wsgi.conf" do
+  conf_name = 'mod_wsgi'
+
+  template "#{node['apache']['dir']}/conf-available/#{conf_name}.conf" do
     source "mod_wsgi.conf.erb"
     cookbook "django-cookbook"
+  end
+
+  apache_config conf_name do
+    enable true
   end
 
   web_app name do
@@ -50,4 +56,5 @@ define :apache_wsgi_app do
       server_name server_name
     end
   end
+
 end

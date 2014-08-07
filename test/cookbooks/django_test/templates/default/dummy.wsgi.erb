@@ -1,0 +1,8 @@
+def application(environ, start_response):
+    output = "Hello World from <%= @message %>!"
+    headers = [
+        ('Content-type', 'text/plain'),
+        ('Content-Length', str(len(output)))
+    ]
+    start_response('200 OK', headers)
+    return [output]

@@ -22,19 +22,17 @@ describe file("/etc/apache2/mods-available/ssl.conf") do
 
   it { should contain('AddType application/x-pkcs7-crl    .crl').from('<IfModule').to('</IfModule>') }
 
-  it { should contain('SSLPassPhraseDialog  builtin').from('<IfModule').to('</IfModule>') }
+  it { should contain('SSLPassPhraseDialog exec:/usr/share/apache2/ask-for-passphrase').from('<IfModule').to('</IfModule>') }
 
   it { should contain('SSLSessionCache        shmcb:/var/run/apache2/ssl_scache').from('<IfModule').to('</IfModule>') }
   
   it { should contain('SSLSessionCacheTimeout  300').from('<IfModule').to('</IfModule>') }
 
-  it { should contain('SSLMutex  file:/var/run/apache2/ssl_mutex').from('<IfModule').to('</IfModule>') }
+  it { should contain('SSLCipherSuite RC4-SHA:HIGH:!ADH').from('<IfModule').to('</IfModule>') }
 
   it { should contain('SSLHonorCipherOrder On').from('<IfModule').to('</IfModule>') }
 
-  it { should contain('SSLCipherSuite RC4-SHA:HIGH:!ADH').from('<IfModule').to('</IfModule>') }
-
-  it { should contain('SSLProtocol all -SSLv2').from('<IfModule').to('</IfModule>') }
+  it { should contain('SSLProtocol all').from('<IfModule').to('</IfModule>') }
 
 end
 

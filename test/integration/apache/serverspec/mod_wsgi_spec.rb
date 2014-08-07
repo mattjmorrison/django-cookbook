@@ -10,11 +10,17 @@ describe package("libapache2-mod-wsgi") do
 
 end
 
-describe file("/etc/apache2/conf.d/mod_wsgi.conf") do
+describe file("/etc/apache2/conf-available/mod_wsgi.conf") do
 
   it { should be_file }
 
   it { should contain "WSGIPythonHome /var/www/base_virtualenv" }
+
+end
+
+describe file("/etc/apache2/conf-enabled/mod_wsgi.conf") do
+
+  it { should be_linked_to '../conf-available/mod_wsgi.conf' }
 
 end
 
