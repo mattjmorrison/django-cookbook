@@ -1,9 +1,5 @@
 require "serverspec"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
-
 describe file("/etc/apache2/mods-available/ssl.conf") do
 
   it { should be_file }

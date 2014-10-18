@@ -1,8 +1,5 @@
 require "serverspec"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
 describe package("apache2") do
 
   it { should be_installed }

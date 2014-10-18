@@ -1,9 +1,5 @@
 require "serverspec"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
-
 describe package("libapache2-mod-wsgi") do
 
   it { should be_installed }

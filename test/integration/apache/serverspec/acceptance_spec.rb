@@ -1,8 +1,5 @@
 require "serverspec"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
 describe command('wget -qO - http://dummy1.sample.com') do
 
   it { should return_stdout "Hello World from dummy!" }
