@@ -2,6 +2,7 @@
 127.0.1.1 apache-ubuntu-1404.vagrantup.com apache-ubuntu-1404
 127.0.1.1 dummy1.sample.com
 127.0.1.1 dummy2.sample.com
+127.0.1.1 apache-ubuntu-1404-i386
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes

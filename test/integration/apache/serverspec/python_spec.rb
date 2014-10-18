@@ -8,12 +8,12 @@ end
 
 describe command("/var/www/base_virtualenv/bin/python --version") do
   
-  it { should return_stdout "Python 2.7.6" }
+  its(:stdout) { should match "Python 2.7.6" }
 
 end
 
 describe command("/var/www/base_virtualenv/bin/pip freeze") do
 
-  it { should return_stdout "argparse==1.2.1\nwsgiref==0.1.2" }
+  its(:stdout) { should match "argparse==1.2.1\nwsgiref==0.1.2" }
 
 end

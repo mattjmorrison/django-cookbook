@@ -19,6 +19,13 @@ apache_wsgi_app 'dummy2' do
   admin_email 'dummy@dummy.com'
 end
 
+cookbook_file '/etc/apache2/apache2.conf' do
+  action :create
+  source 'apache2.conf'
+  owner 'root'
+  group 'root'
+  mode '644'
+end
 
 ['dummy', 'dummy2'].each do |file_name|
   directory "/var/www/#{file_name}/wsgi/" do
