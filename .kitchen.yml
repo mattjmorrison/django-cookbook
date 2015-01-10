@@ -2,8 +2,9 @@
 driver:
   name: vagrant
 
-provisioner: 
+provisioner:
   name: chef_solo
+  require_chef_omnibus: 11.6.2
 
 platforms:
   - name: ubuntu-14.04-i386
