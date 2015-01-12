@@ -20,15 +20,16 @@ describe file("/etc/apache2/mods-available/ssl.conf") do
 
   it { should contain('SSLPassPhraseDialog exec:/usr/share/apache2/ask-for-passphrase').from('<IfModule').to('</IfModule>') }
 
-  it { should contain('SSLSessionCache        shmcb:/var/run/apache2/ssl_scache').from('<IfModule').to('</IfModule>') }
-  
+  it { should contain('SSLSessionCache         shmcb:/var/run/apache2/ssl_scache').from('<IfModule').to('</IfModule>') }
+
   it { should contain('SSLSessionCacheTimeout  300').from('<IfModule').to('</IfModule>') }
 
-  it { should contain('SSLCipherSuite RC4-SHA:HIGH:!ADH').from('<IfModule').to('</IfModule>') }
+  # it { should contain('SSLCipherSuite RC4-SHA:HIGH:!ADH').from('<IfModule').to('</IfModule>') }
+  it { should contain('SSLCipherSuite EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256').from('<IfModule').to('</IfModule>') }
 
   it { should contain('SSLHonorCipherOrder On').from('<IfModule').to('</IfModule>') }
 
-  it { should contain('SSLProtocol all').from('<IfModule').to('</IfModule>') }
+  it { should contain('SSLProtocol All -SSLv2 -SSLv3').from('<IfModule').to('</IfModule>') }
 
 end
 

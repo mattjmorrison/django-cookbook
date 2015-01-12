@@ -7,13 +7,13 @@ describe package("virtualenv") do
 end
 
 describe command("/var/www/base_virtualenv/bin/python --version") do
-  
+
   its(:stdout) { should match "Python 2.7.6" }
 
 end
 
 describe command("/var/www/base_virtualenv/bin/pip freeze") do
 
-  its(:stdout) { should match "argparse==1.2.1\nwsgiref==0.1.2" }
+  its(:stdout) { should match "" }
 
 end
