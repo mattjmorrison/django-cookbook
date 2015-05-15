@@ -1,5 +1,5 @@
 name "django-cookbook"
-version "0.1.0"
+version "0.2.0"
 
 depends 'apache2', '~> 3.0.1'
 depends 'python', '~> 1.4.4'
