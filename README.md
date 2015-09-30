@@ -1,3 +1,5 @@
+This project is obsolete.
+
 Django Cookbook
 ---------------
 
